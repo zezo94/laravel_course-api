@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PostController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,3 +28,12 @@ Route::group(['prefix' => 'users'] , function () {
 });
 
 
+Route::group(['prefix' => 'post', 'middleware' => 'auth:sanctum'], function () {
+    Route::get('/', [PostController::class, 'index']);           // GET    /post
+    Route::get('create', [PostController::class, 'create']);     // GET    /post/create
+    Route::post('/', [PostController::class, 'store']);          // POST   /post
+    Route::get('{id}', [PostController::class, 'show']);         // GET    /post/{id}
+    Route::get('{id}/edit', [PostController::class, 'edit']);    // GET    /post/{id}/edit
+    Route::put('{id}', [PostController::class, 'update']);       // PUT    /post/{id}
+    Route::delete('{id}', [PostController::class, 'destroy']);   // DELETE /post/{id}
+});
